@@ -88,7 +88,7 @@ jobs:
     - name: Check Rust formatting (stable rustfmt, no warnings)
       run: |
         # Using stable rustfmt to avoid unstable feature warnings in CI
-        find ferric_continuum -name "*.rs" -exec rustfmt +stable --edition 2021 --check {} \;
+        find ferric_continuum -name "*.rs" -print0 | xargs -0 rustfmt +stable --edition 2021 --check
 
   lint:
     name: Lint
