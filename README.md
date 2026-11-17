@@ -133,3 +133,10 @@ This project is licensed under the MIT License - see the `LICENSE` file for deta
 ---
 
 **Ferric Continuum** — *Forging performance through parallelism and precision.*
+
+## Distributed measurement experiments
+
+[FARO measurement primitives](ferric_continuum/faro/README.md) provide optional
+PyTorch stream-event intervals, forward host-progress edges, a frozen exploratory
+peer-duration detector, and a reduced TP MLP fixture. CPU-only tests require no GPU;
+these helpers do not constitute an automatic fault diagnosis or cluster launcher.

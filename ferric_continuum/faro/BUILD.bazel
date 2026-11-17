@@ -1,0 +1,23 @@
+load("@rules_python//python:defs.bzl", "py_library", "py_test")
+
+package(default_visibility = ["//visibility:public"])
+
+py_library(
+    name = "measurements",
+    imports = ["."],
+    srcs = ["__init__.py", "detector_v0.py", "detector_v2.py", "events.py", "host_progress_edges.py"],
+)
+
+[py_test(
+    name = name,
+    srcs = [name + ".py"],
+    main = name + ".py",
+    deps = [":measurements"],
+) for name in ["detector_v0_test", "detector_v2_test", "events_test", "host_progress_edges_test"]]
+
+# PyTorch is supplied by the caller's qualified CUDA environment, not the
+# repository's CPU-only Python dependency lock. This target packages source only.
+filegroup(
+    name = "pytorch_fixture_source",
+    srcs = ["mlp_fixture.py"],
+)
