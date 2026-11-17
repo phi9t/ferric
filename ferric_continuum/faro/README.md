@@ -47,8 +47,11 @@ bazel test //ferric_continuum/faro:all
 
 PyTorch is optional for these tests. Actual CUDA events and the model require a
 separately provisioned PyTorch/CUDA runtime. Fake-event tests check API ordering
-and refusal behavior, not GPU timing accuracy. This integration has not itself
-been qualified on a GPU. No launcher, cluster credentials, host paths, captured
+and refusal behavior, not GPU timing accuracy. The `StreamInterval` API separately passed a four-worker H100 smoke on
+PyTorch 2.13/CUDA 12.6: distinct retained events, ordered CUDA operations, one
+final completion fence, expected tensor results and duplicate-begin rejection.
+That tiny first-use smoke is not a performance measurement. The model and this
+package as a distributed end-to-end workflow have not been GPU-qualified. No launcher, cluster credentials, host paths, captured
 traces, private run receipts or runtime-specific monkeypatches are included.
 
 ## Minimal CUDA API usage
