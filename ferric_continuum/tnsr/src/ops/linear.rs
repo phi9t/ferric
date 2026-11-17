@@ -73,8 +73,7 @@ pub fn raw_linear_forward(x: &TensorValue, w: &TensorValue) -> TensorValue {
 
     // Optional GPU forward via cuda_kernels (host in / host out). Backward stays CPU.
     if crate::cuda_ffi::use_cuda() {
-        match crate::cuda_ffi::gemm_f32(batch, dout, din, x.data.as_ref(), w.data.as_ref())
-        {
+        match crate::cuda_ffi::gemm_f32(batch, dout, din, x.data.as_ref(), w.data.as_ref()) {
             Some(out_data) => {
                 return TensorValue::from_vec(Shape(out_shape), out_data);
             }
