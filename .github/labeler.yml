@@ -3,79 +3,103 @@
 
 # C++ code
 'C++':
-  - '**/*.cc'
-  - '**/*.hh'
-  - '**/*.cpp'
-  - '**/*.hpp'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.cc'
+      - '**/*.hh'
+      - '**/*.cpp'
+      - '**/*.hpp'
 
 # Rust code
 'Rust':
-  - '**/*.rs'
-  - '**/Cargo.toml'
-  - '**/Cargo.lock'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.rs'
+      - '**/Cargo.toml'
+      - '**/Cargo.lock'
 
 # Python code
 'Python':
-  - '**/*.py'
-  - '**/requirements*.txt'
-  - '**/setup.py'
-  - '**/pyproject.toml'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.py'
+      - '**/requirements*.txt'
+      - '**/setup.py'
+      - '**/pyproject.toml'
 
 # Bazel build system
 'Bazel':
-  - '**/*.bazel'
-  - '**/*.bzl'
-  - '**/BUILD'
-  - '**/BUILD.bazel'
-  - '**/WORKSPACE'
-  - '**/WORKSPACE.bazel'
-  - '**/MODULE.bazel'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.bazel'
+      - '**/*.bzl'
+      - '**/BUILD'
+      - '**/BUILD.bazel'
+      - '**/WORKSPACE'
+      - '**/WORKSPACE.bazel'
+      - '**/MODULE.bazel'
 
 # Documentation
 'Documentation':
-  - '**/*.md'
-  - '**/docs/**/*'
-  - '**/*.rst'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.md'
+      - '**/docs/**/*'
+      - '**/*.rst'
 
 # Tests
 'Tests':
-  - '**/*_test.cc'
-  - '**/*_test.rs'
-  - '**/*_test.py'
-  - '**/test_*.py'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*_test.cc'
+      - '**/*_test.rs'
+      - '**/*_test.py'
+      - '**/test_*.py'
 
 # CI/CD
 'CI/CD':
-  - '.github/workflows/**'
-  - '.github/actions/**'
-  - '**/ci/**'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '.github/workflows/**'
+      - '.github/actions/**'
+      - '**/ci/**'
 
 # Configuration
 'Configuration':
-  - '**/*.toml'
-  - '**/*.yaml'
-  - '**/*.yml'
-  - '**/*.json'
-  - '**/.clang-format'
-  - '**/rustfmt.toml'
-  - '**/clippy.toml'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/*.toml'
+      - '**/*.yaml'
+      - '**/*.yml'
+      - '**/*.json'
+      - '**/.clang-format'
+      - '**/rustfmt.toml'
+      - '**/clippy.toml'
 
 # Dependencies
 'Dependencies':
-  - '**/MODULE.bazel'
-  - '**/requirements*.txt'
-  - '**/Cargo.toml'
+  - changed-files:
+    - any-glob-to-any-file:
+      - '**/MODULE.bazel'
+      - '**/requirements*.txt'
+      - '**/Cargo.toml'
 
 # Foundation libraries
 'Foundation':
-  - 'ferric_continuum/foundation/**'
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'ferric_continuum/foundation/**'
 
 # Agents
 'Agents':
-  - 'agents/**'
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'agents/**'
 
 # Examples
 'Examples':
-  - 'examples/**'
-  - 'ferric_continuum/hello/**'
+  - changed-files:
+    - any-glob-to-any-file:
+      - 'examples/**'
+      - 'ferric_continuum/hello/**'
 
