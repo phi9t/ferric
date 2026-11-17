@@ -13,7 +13,7 @@ jobs:
     strategy:
       fail-fast: false
       matrix:
-        os: [ubuntu-24.04, macos-latest]
+        os: [ubuntu-22.04, macos-latest]
         
     steps:
     - name: Checkout code
@@ -25,19 +25,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y \
           build-essential \
-          clang-18 \
-          libc++-18-dev \
-          libc++abi-18-dev \
           libstdc++-12-dev \
           libncurses6 \
-          libtinfo6
-        # libtinfo5 was dropped in Ubuntu 24.04; create a .so.5 compat symlink so
-        # pre-built LLVM toolchain binaries that reference the old soname still work.
-        TINFO6=$(ldconfig -p | awk '/\blibtinfo\.so\.6\b/{print $NF; exit}')
-        if [ -n "$TINFO6" ]; then
-          sudo ln -sf "$TINFO6" /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-          sudo ldconfig
-        fi
+          libtinfo5
+        # LLVM 18.1.8's official Linux binary requires ABI 5. Jammy supplies
+        # the real library; never alias libtinfo.so.6 across an ABI boundary.
+        ldconfig -p | grep -F 'libtinfo.so.5'
 
     - name: Setup Bazel
       uses: bazel-contrib/setup-bazel@0.8.1
@@ -50,7 +43,7 @@ jobs:
         path: |
           ~/.cache/bazel
           ~/.cache/bazelisk
-        key: ${{ runner.os }}-bazel-${{ hashFiles('**/*.bazel', '**/*.bzl', 'MODULE.bazel') }}
+        key: ${{ runner.os }}-bazel-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-bazel-
 
@@ -95,7 +88,7 @@ jobs:
     - name: Check Rust formatting (stable rustfmt, no warnings)
       run: |
         # Using stable rustfmt to avoid unstable feature warnings in CI
-        find ferric_continuum -name "*.rs" -exec rustfmt +stable --edition 2021 --check {} \;
+        find ferric_continuum -name "*.rs" -print0 | xargs -0 rustfmt +stable --edition 2021 --check
 
   lint:
     name: Lint
@@ -121,7 +114,7 @@ jobs:
 
   coverage:
     name: Test Coverage
-    runs-on: ubuntu-24.04
+    runs-on: ubuntu-22.04
     
     steps:
     - name: Checkout code
@@ -132,19 +125,12 @@ jobs:
         sudo apt-get update
         sudo apt-get install -y \
           build-essential \
-          clang-18 \
-          libc++-18-dev \
-          libc++abi-18-dev \
           libstdc++-12-dev \
           libncurses6 \
-          libtinfo6
-        # libtinfo5 was dropped in Ubuntu 24.04; create a .so.5 compat symlink so
-        # pre-built LLVM toolchain binaries that reference the old soname still work.
-        TINFO6=$(ldconfig -p | awk '/\blibtinfo\.so\.6\b/{print $NF; exit}')
-        if [ -n "$TINFO6" ]; then
-          sudo ln -sf "$TINFO6" /usr/lib/x86_64-linux-gnu/libtinfo.so.5
-          sudo ldconfig
-        fi
+          libtinfo5
+        # LLVM 18.1.8's official Linux binary requires ABI 5. Jammy supplies
+        # the real library; never alias libtinfo.so.6 across an ABI boundary.
+        ldconfig -p | grep -F 'libtinfo.so.5'
 
     - name: Setup Bazel
       uses: bazel-contrib/setup-bazel@0.8.1
@@ -157,7 +143,7 @@ jobs:
         path: |
           ~/.cache/bazel
           ~/.cache/bazelisk
-        key: ${{ runner.os }}-bazel-coverage-${{ hashFiles('**/*.bazel', '**/*.bzl', 'MODULE.bazel') }}
+        key: ${{ runner.os }}-bazel-coverage-${{ github.sha }}
         restore-keys: |
           ${{ runner.os }}-bazel-
 

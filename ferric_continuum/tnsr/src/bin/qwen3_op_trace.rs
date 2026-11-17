@@ -53,7 +53,10 @@ fn component_of(name: &str) -> &'static str {
 /// Print a "kind : count" table sorted by descending count, then name.
 fn print_kind_counts(counts: &HashMap<OpKind, usize>) {
     let mut rows: Vec<(OpKind, usize)> = counts.iter().map(|(k, c)| (*k, *c)).collect();
-    rows.sort_by(|a, b| b.1.cmp(&a.1).then_with(|| format!("{:?}", a.0).cmp(&format!("{:?}", b.0))));
+    rows.sort_by(|a, b| {
+        b.1.cmp(&a.1)
+            .then_with(|| format!("{:?}", a.0).cmp(&format!("{:?}", b.0)))
+    });
     for (kind, count) in rows {
         info!("  {:>5}  {:?}", count, kind);
     }
@@ -142,7 +145,11 @@ fn main() {
     let mut by_component: BTreeMap<&'static str, HashMap<OpKind, usize>> = BTreeMap::new();
     for rec in &records {
         let comp = component_of(&rec.name);
-        *by_component.entry(comp).or_default().entry(rec.kind).or_default() += 1;
+        *by_component
+            .entry(comp)
+            .or_default()
+            .entry(rec.kind)
+            .or_default() += 1;
     }
 
     info!("");

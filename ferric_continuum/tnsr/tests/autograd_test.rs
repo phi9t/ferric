@@ -540,9 +540,18 @@ fn test_split3_forward_is_slicing() {
     assert_eq!(v.shape().0, vec![2, 2]);
 
     // Row 0 of x is [0,1,2,3,4,5] -> q=[0,1], k=[2,3], v=[4,5]
-    assert_eq!(q.inner.borrow().value.data.as_ref(), &vec![0.0, 1.0, 6.0, 7.0]);
-    assert_eq!(k.inner.borrow().value.data.as_ref(), &vec![2.0, 3.0, 8.0, 9.0]);
-    assert_eq!(v.inner.borrow().value.data.as_ref(), &vec![4.0, 5.0, 10.0, 11.0]);
+    assert_eq!(
+        q.inner.borrow().value.data.as_ref(),
+        &vec![0.0, 1.0, 6.0, 7.0]
+    );
+    assert_eq!(
+        k.inner.borrow().value.data.as_ref(),
+        &vec![2.0, 3.0, 8.0, 9.0]
+    );
+    assert_eq!(
+        v.inner.borrow().value.data.as_ref(),
+        &vec![4.0, 5.0, 10.0, 11.0]
+    );
 }
 
 #[test]

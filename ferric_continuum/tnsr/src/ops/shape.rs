@@ -88,8 +88,7 @@ fn raw_split3(x: &TensorValue) -> [TensorValue; 3] {
     let out_shape = Shape(out_shape);
 
     let src = x.data.as_ref();
-    let mut parts: Vec<Vec<f32>> =
-        (0..3).map(|_| Vec::with_capacity(rows * chunk)).collect();
+    let mut parts: Vec<Vec<f32>> = (0..3).map(|_| Vec::with_capacity(rows * chunk)).collect();
     for r in 0..rows {
         let base = r * last;
         for (p, part) in parts.iter_mut().enumerate() {
